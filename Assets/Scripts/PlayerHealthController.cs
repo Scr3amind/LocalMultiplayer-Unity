@@ -22,16 +22,35 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     {
         initializeHealth();
     }
-
+    void Update() {
+        if(Keyboard.current.gKey.wasPressedThisFrame)
+        {
+            addHealth();
+           
+        }
+    }
+    void LateUpdate() {
+        // dont flip hearts
+        heartHolder.localScale = new Vector3(transform.localScale.x, heartHolder.localScale.y, heartHolder.localScale.z);
+    }
     public void initializeHealth()
     {
         for (int i = 0; i < initialHealthPoints; i++)
         {
             addHealth();
-            Debug.Log(i);
         }
     }
-    void addHeart() {
+
+    public void emptyHealth()
+    {   
+
+        while(healthPoints > 0)
+        {
+            reduceHealth();
+        }
+    }
+    void addHeart() 
+    {
         HeartController currentHeart;
         currentHeart = Instantiate(heartPrefab);
         currentHeart.transform.SetParent(heartHolder);
@@ -43,46 +62,56 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
 
     }
 
+    void removeHeart()
+    {
+        GameObject extraHeart = heartsList[healthPoints].gameObject;
+        heartsList.RemoveAt(healthPoints);
+        Destroy(extraHeart);
+        heartPositionX -= 0.5f;
+        currentNumberOfHearts--;
+    }
+
 
     void addHealth()
     {
-        if(healthPoints >= currentNumberOfHearts)
+        healthPoints++;
+        if(healthPoints > currentNumberOfHearts)
         {
             addHeart();
         }
         else {
-            heartsList[healthPoints].makeFull();
-        }
-        healthPoints++;
-    }
-
-    void die() {
-        gameObject.SetActive(false);
-    }
-
-    void Update() {
-        if(Keyboard.current.gKey.wasPressedThisFrame)
-        {
-            addHealth();
+            heartsList[healthPoints - 1].makeFull();
         }
     }
 
-    void LateUpdate() {
-        // dont flip hearts
-        heartHolder.localScale = new Vector3(transform.localScale.x, heartHolder.localScale.y, heartHolder.localScale.z);
-    }
     public void takeDamage()
     {
         if (isInvincible) return;
-
-        heartsList[healthPoints - 1].makeEmpty();
-        healthPoints--;
+        reduceHealth();
         becomeInvincible();
 
         if(healthPoints < 1) {
             die();
-            return;
         }
+
+    }
+
+    public void reduceHealth()
+    {
+        if(healthPoints < 0) return;
+
+        healthPoints--;
+        if(healthPoints >= initialHealthPoints)
+        {
+            removeHeart();
+        }
+        else 
+        {
+            heartsList[healthPoints].makeEmpty();
+        }
+    }
+    void die() {
+        gameObject.SetActive(false);
     }
 
     void becomeInvincible() 

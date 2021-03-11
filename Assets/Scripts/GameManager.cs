@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in players)
         {
             player.SetActive(true);
+            player.GetComponent<PlayerHealthController>().emptyHealth();
             player.GetComponent<PlayerHealthController>().initializeHealth();
         }
     }
