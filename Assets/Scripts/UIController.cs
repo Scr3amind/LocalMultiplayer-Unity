@@ -8,6 +8,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text jointText;
     [SerializeField] private TMP_Text countDownText;
     
+    private void Awake() {
+        DontDestroyOnLoad(gameObject);
+    }
     public void enableJoinText(bool option)
     {
         jointText.gameObject.SetActive(option);
