@@ -7,13 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private int _minPlayers;
-    [SerializeField] private int _numOfPlayers;
+    [SerializeField] private int _numOfActivePlayers;
     [SerializeField] private UIController uIController;
     [SerializeField] private bool playersCanDamage = true;
-    [SerializeField] private string nextLevel;
+    [SerializeField] private string nextLevelName;
     [SerializeField] private List<GameObject> players;
-    public int numOfPlayers
-    {get => _numOfPlayers;}
+    public int numOfActivePlayers
+    {get => _numOfActivePlayers;}
     public int minPlayers
     {get => _minPlayers;}
 
@@ -33,16 +33,29 @@ public class GameManager : MonoBehaviour
 
     public void addPlayer(GameObject player)
     {
-        if(numOfPlayers < minPlayers) {
+        if(numOfActivePlayers < minPlayers) {
             player.GetComponent<PlayerHealthController>().isInvincible = !playersCanDamage;
             players.Add(player);
-            _numOfPlayers++;
+            _numOfActivePlayers++;
         }
-        if(numOfPlayers == minPlayers) {
+        if(numOfActivePlayers == minPlayers) {
             prepareToStart();
         }
     }
 
+    public void reducePlayersAlive()
+    {
+        _numOfActivePlayers--;
+        if(_numOfActivePlayers <= 1)
+        {
+            endRound();
+        }
+    }
+
+    public void setNextLevel(string levelName)
+    {
+        nextLevelName = levelName;
+    }
     public void initializePlayers()
     {
         playersCanDamage = true;
@@ -54,9 +67,39 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void endRound()
+    {
+        GameObject winner = findWinner();
+        Debug.Log("Ended Round");
+    }
+
+    private GameObject findWinner()
+    {
+        foreach(GameObject player in players)
+        {
+            if( player.activeInHierarchy)
+            {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public void setPlayersPositions(List<Vector3> positions)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].transform.position = positions[i];
+        }
+    }
+
     private void gotoNextLevel()
     {
-        SceneManager.LoadScene(nextLevel);
+        SceneManager.LoadScene(nextLevelName);
+    }
+
+    private void prepareToStart() {
+        uIController.enableJoinText(false);
     }
 
     public Coroutine startCountDownToNextLevel(int startNumber) 
@@ -64,11 +107,10 @@ public class GameManager : MonoBehaviour
         uIController.enableCountDownText(true);
         return StartCoroutine(CountDown(startNumber, gotoNextLevel));
     }
-
     public void stopCountDown(Coroutine countDownToStop)
     {
-        StopCoroutine(countDownToStop);
         uIController.enableCountDownText(false);
+        StopCoroutine(countDownToStop);
     }
     IEnumerator CountDown(int startNumber, callback endingAction) 
     {
@@ -78,15 +120,7 @@ public class GameManager : MonoBehaviour
             currentNumber--;
             yield return new WaitForSeconds(0.5f);
         }
+        uIController.enableCountDownText(false);
         endingAction();
     }
-
-
-    private void prepareToStart() {
-        uIController.enableJoinText(false);
-    }
-
-    
-
-    
 }
