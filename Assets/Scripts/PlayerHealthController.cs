@@ -111,8 +111,8 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         }
     }
     void die() {
-        GameManager.instance.reducePlayersAlive();
         gameObject.SetActive(false);
+        GameManager.instance.reducePlayersAlive();
     }
 
     void becomeInvincible() 

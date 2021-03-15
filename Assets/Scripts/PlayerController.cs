@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalDirection;
 
     // Start is called before the first frame update
-    private void OnEnable() {
+    private void Start() {
         DontDestroyOnLoad(gameObject);
         GameManager.instance.addPlayer(this.gameObject);
     }

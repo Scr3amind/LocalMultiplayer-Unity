@@ -7,13 +7,13 @@ public class ArenaManager : MonoBehaviour
     [SerializeField] List<Transform> spawnPoints = new List<Transform>();
     private void Awake() 
     {
-        GameManager.instance.initializePlayers();
         randomizePlayerPositions();
+        GameManager.instance.initializePlayers();
     }
 
     private void randomizePlayerPositions()
     {
-        if(spawnPoints.Count < GameManager.instance.numOfActivePlayers)
+        if(spawnPoints.Count < GameManager.instance.numOfTotalPlayers)
         {
             Debug.LogWarning("Insuficient SpawnPoints");
             return;
@@ -21,7 +21,7 @@ public class ArenaManager : MonoBehaviour
         else
         {
             List<Vector3> randomPositions = new List<Vector3>();
-            for (int i = 0; i < GameManager.instance.numOfActivePlayers; i++)
+            for (int i = 0; i < GameManager.instance.numOfTotalPlayers; i++)
             {
                 Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
                 randomPositions.Add(randomSpawnPoint.position);

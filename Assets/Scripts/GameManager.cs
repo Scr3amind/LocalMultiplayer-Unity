@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private int _minPlayers;
-    [SerializeField] private int _numOfActivePlayers;
+    [SerializeField] private int _numOfActivePlayers = 0;
+    [SerializeField] private int _numOfTotalPlayers;
     [SerializeField] private UIController uIController;
     [SerializeField] private bool playersCanDamage = true;
     [SerializeField] private string nextLevelName;
     [SerializeField] private List<GameObject> players;
+    [SerializeField] private LevelManager levelManager;
+    [SerializeField] private int currentLevel = 0;
     public int numOfActivePlayers
     {get => _numOfActivePlayers;}
     public int minPlayers
     {get => _minPlayers;}
+    public int numOfTotalPlayers
+    {get => _numOfTotalPlayers;}
 
     private delegate void callback();
     
@@ -36,9 +40,10 @@ public class GameManager : MonoBehaviour
         if(numOfActivePlayers < minPlayers) {
             player.GetComponent<PlayerHealthController>().isInvincible = !playersCanDamage;
             players.Add(player);
-            _numOfActivePlayers++;
+            _numOfTotalPlayers++;
+            player.GetComponent<PlayerStatsController>().setName($"Player {_numOfTotalPlayers}");
         }
-        if(numOfActivePlayers == minPlayers) {
+        if(numOfTotalPlayers == minPlayers) {
             prepareToStart();
         }
     }
@@ -52,15 +57,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void setNextLevel(string levelName)
-    {
-        nextLevelName = levelName;
-    }
     public void initializePlayers()
     {
+        _numOfActivePlayers = 0;
         playersCanDamage = true;
         foreach (GameObject player in players)
         {
+            _numOfActivePlayers++;
+            player.SetActive(false);
             player.SetActive(true);
             player.GetComponent<PlayerHealthController>().emptyHealth();
             player.GetComponent<PlayerHealthController>().initializeHealth();
@@ -69,8 +73,12 @@ public class GameManager : MonoBehaviour
 
     private void endRound()
     {
-        GameObject winner = findWinner();
-        Debug.Log("Ended Round");
+        PlayerStatsController winner = findWinner().GetComponent<PlayerStatsController>();
+        winner.addWin();
+        uIController.setWinnerText(winner.getName());
+
+        uIController.setRoundOverUIenabled(true);
+        startCountDownToNextLevel(5);
     }
 
     private GameObject findWinner()
@@ -95,7 +103,9 @@ public class GameManager : MonoBehaviour
 
     private void gotoNextLevel()
     {
-        SceneManager.LoadScene(nextLevelName);
+        uIController.setRoundOverUIenabled(false);
+        levelManager.loadLevel(currentLevel);
+        currentLevel++;
     }
 
     private void prepareToStart() {
@@ -118,7 +128,7 @@ public class GameManager : MonoBehaviour
         while(currentNumber >= 0) {
             uIController.setCountDownText(currentNumber);
             currentNumber--;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.0f);
         }
         uIController.enableCountDownText(false);
         endingAction();
