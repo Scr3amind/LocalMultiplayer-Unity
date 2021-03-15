@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/CharSelector.unity
     guid: c4d22f4d3d9693e47bc6acd3e529ad10
   - enabled: 1
-    path: Assets/Scenes/PlayerTesting.unity
-    guid: c5d4f5ab3c409664a9b6b05eb2be05ea
-  - enabled: 1
     path: Assets/Scenes/TestArena1.unity
     guid: 5b4e712a0ff095542a401e5dbdbcc4fd
+  - enabled: 1
+    path: Assets/Scenes/Arena3.unity
+    guid: 21d220f28cf059448b061bbfc76ed70f
+  - enabled: 1
+    path: Assets/Scenes/Arena2.unity
+    guid: 1931b026e7fb067438c30c6464299304
   m_configObjects: {}
