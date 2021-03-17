@@ -8,18 +8,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _minPlayers;
     [SerializeField] private int _numOfActivePlayers = 0;
     [SerializeField] private int _numOfTotalPlayers;
-    [SerializeField] private UIController uIController;
+    [SerializeField] private int currentRound = 0;
+    [SerializeField] private int roundsToWin = 3;
     [SerializeField] private bool playersCanDamage = true;
-    [SerializeField] private string nextLevelName;
+    [SerializeField] private UIController uIController;
     [SerializeField] private List<GameObject> players;
     [SerializeField] private LevelManager levelManager;
-    [SerializeField] private int currentLevel = 0;
+    private GameObject currentWinner;
     public int numOfActivePlayers
     {get => _numOfActivePlayers;}
     public int minPlayers
     {get => _minPlayers;}
     public int numOfTotalPlayers
     {get => _numOfTotalPlayers;}
+    public int totalRounds
+    {get => currentRound - 1;}
 
     private delegate void callback();
     
@@ -73,24 +76,43 @@ public class GameManager : MonoBehaviour
 
     private void endRound()
     {
-        PlayerStatsController winner = findWinner().GetComponent<PlayerStatsController>();
+        findWinner();
+        PlayerStatsController winner = currentWinner.GetComponent<PlayerStatsController>();
         winner.addWin();
         uIController.setWinnerText(winner.getName());
-
         uIController.setRoundOverUIenabled(true);
-        startCountDownToNextLevel(5);
+
+        if(winner.getWins() >= roundsToWin)
+        {
+            startCountDownToWinScreen(3);
+        }
+        else
+        {
+            startCountDownToNextLevel(5);
+        }
+
     }
 
-    private GameObject findWinner()
+
+    private void findWinner()
     {
         foreach(GameObject player in players)
         {
             if( player.activeInHierarchy)
             {
-                return player;
+                currentWinner = player;
             }
         }
-        return null;
+    }
+
+    public GameObject getWinnerPlayer()
+    {
+        return currentWinner;
+    }
+
+    public UIController GetUIController()
+    {
+        return uIController;
     }
 
     public void setPlayersPositions(List<Vector3> positions)
@@ -101,11 +123,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void gotoWinScreen()
+    {
+        uIController.setRoundOverUIenabled(false);
+        levelManager.loadWinScreen();
+        currentRound++;
+    }
     private void gotoNextLevel()
     {
         uIController.setRoundOverUIenabled(false);
-        levelManager.loadLevel(currentLevel);
-        currentLevel++;
+        levelManager.loadNextLevel(currentRound);
+        currentRound++;
     }
 
     private void prepareToStart() {
@@ -116,6 +144,12 @@ public class GameManager : MonoBehaviour
     {
         uIController.enableCountDownText(true);
         return StartCoroutine(CountDown(startNumber, gotoNextLevel));
+    }
+
+    public Coroutine startCountDownToWinScreen(int startNumber) 
+    {
+        uIController.enableCountDownText(true);
+        return StartCoroutine(CountDown(startNumber, gotoWinScreen));
     }
     public void stopCountDown(Coroutine countDownToStop)
     {

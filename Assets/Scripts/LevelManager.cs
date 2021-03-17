@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private string[] allLevelNames;
+    [SerializeField] private string winScreen;
     [SerializeField] private List<string> shuffledLevelNames = new List<string>();
     void Start()
     {
@@ -26,10 +27,15 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void loadLevel(int index)
+    public void loadNextLevel(int index)
     {
         int cyclicIndex = index % shuffledLevelNames.Count;
         SceneManager.LoadScene(shuffledLevelNames[cyclicIndex]);
+    }
+
+    public void loadWinScreen()
+    {
+        SceneManager.LoadScene(winScreen);
     }
 
 }

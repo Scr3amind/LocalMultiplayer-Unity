@@ -84,10 +84,13 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         }
     }
 
-    public void takeDamage()
+    public void takeDamage(int damage)
     {
         if (isInvincible) return;
-        reduceHealth();
+        for (int i = 0; i < damage; i++)
+        {
+            reduceHealth();
+        }
         becomeInvincible();
 
         if(healthPoints < 1) {
@@ -98,7 +101,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
 
     public void reduceHealth()
     {
-        if(healthPoints < 0) return;
+        if(healthPoints < 1) return;
 
         healthPoints--;
         if(healthPoints >= initialHealthPoints)

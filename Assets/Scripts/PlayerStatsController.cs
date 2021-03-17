@@ -15,6 +15,11 @@ public class PlayerStatsController : MonoBehaviour
         playerColor = Color.HSVToRGB(Random.Range(0,1.0f),0.5f,1.0f);
         playerUIController?.setUIColor(playerColor);
     }
+
+    public Color getPlayerColor()
+    {
+        return playerColor;
+    }
     public void setName(string name)
     {
         playerName = name;

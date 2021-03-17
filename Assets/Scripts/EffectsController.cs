@@ -7,6 +7,10 @@ public class EffectsController : MonoBehaviour
     [SerializeField] private GameObject spawnEffectParticles;
     [SerializeField] private SpriteRenderer spriteRenderer;
     
+    private void OnEnable() 
+    {
+        spawnEffect();
+    }
     void spawnEffect() 
     {
         Instantiate(spawnEffectParticles, transform.position, transform.rotation);
@@ -41,15 +45,6 @@ public class EffectsController : MonoBehaviour
         StopCoroutine("blink");
         // spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         spriteRenderer.enabled = true;
-    }
-    private void OnEnable() 
-    {
-        spawnEffect();
-    }
-
-    private void Update() 
-    {
-        
     }
 
 
