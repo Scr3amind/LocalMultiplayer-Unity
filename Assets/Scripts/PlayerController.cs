@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private Animator animator;
     [SerializeField] private float timeBetweenAttacks = 0.25f;
+
     private bool isGrounded = false;
     private bool canMove = true;
     private float horizontalDirection;
@@ -19,8 +21,9 @@ public class PlayerController : MonoBehaviour
     private void Start() {
         DontDestroyOnLoad(gameObject);
         GameManager.instance.addPlayer(this.gameObject);
+        
     }
-
+    
     // Update is called once per frame
     void Update()
     {

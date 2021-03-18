@@ -18,7 +18,14 @@ public class PhysicsController : MonoBehaviour
 
     public void teletransport(Vector3 newPosition)
     {
+        gameObject.SetActive(false);
         transform.position = newPosition;
+        gameObject.SetActive(true);
+    }
+
+    public void changeGravity(float newGravity)
+    {
+        rigidBody2d.gravityScale = newGravity;
     }
 
 
