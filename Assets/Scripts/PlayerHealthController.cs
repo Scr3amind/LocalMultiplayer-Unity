@@ -72,7 +72,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     }
 
 
-    void addHealth()
+    public void addHealth()
     {
         healthPoints++;
         if(healthPoints > currentNumberOfHearts)
@@ -91,7 +91,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         {
             reduceHealth();
         }
-        becomeInvincible();
+        becomeInvincible(invincibilityTime);
 
         if(healthPoints < 1) {
             die();
@@ -118,11 +118,11 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         GameManager.instance.reducePlayersAlive();
     }
 
-    void becomeInvincible() 
+    public void becomeInvincible(float invincibleTime) 
     {
         isInvincible = true;
         effectsController?.invincibilityEffect();
-        Invoke("becomeMortal", invincibilityTime);
+        Invoke("becomeMortal", invincibleTime);
 
     }
 

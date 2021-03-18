@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 1997310770882730387}
   - component: {fileID: 2723614389637641916}
   - component: {fileID: 7113855813925059017}
+  - component: {fileID: 2826530821314927878}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -503,9 +504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612f7803a4e90aa4c8b8480004e41333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 2793844680796154479}
   movespeed: 10
   jumpForce: 21
+  rb: {fileID: 2793844680796154479}
   groundCheckPoint: {fileID: 2793844680876691343}
   groundLayerMask:
     serializedVersion: 2
@@ -613,7 +614,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9e37faf76cbd04282fd5ecbf84e2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 0}
+--- !u!114 &2826530821314927878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793844680796154467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c77dfd2b9682de4bb4a7e212481962e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physicsController: {fileID: 2723614389637641916}
+  playerController: {fileID: 2793844680796154478}
+  playerHealthController: {fileID: 7159987207029943166}
 --- !u!1 &2793844680876691340
 GameObject:
   m_ObjectHideFlags: 0

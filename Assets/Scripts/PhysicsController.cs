@@ -6,6 +6,8 @@ using UnityEngine;
 public class PhysicsController : MonoBehaviour
 {
     private Rigidbody2D rigidBody2d;
+
+    private float initialGravity;
     private void Start() 
     {
         rigidBody2d = GetComponent<Rigidbody2D>();
@@ -27,6 +29,12 @@ public class PhysicsController : MonoBehaviour
     {
         rigidBody2d.gravityScale = newGravity;
     }
+
+    public float getCurrentGravity()
+    {
+        return rigidBody2d.gravityScale;
+    }
+
 
 
 }

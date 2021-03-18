@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public float movespeed, jumpForce;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float movespeed, jumpForce;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private Animator animator;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.addPlayer(this.gameObject);
         
     }
-    
+
     // Update is called once per frame
     void Update()
     {
