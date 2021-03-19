@@ -513,6 +513,7 @@ MonoBehaviour:
     m_Bits: 128
   animator: {fileID: 2793844680796154472}
   timeBetweenAttacks: 0.25
+  attackSound: {fileID: 8300000, guid: d58384b7dac6290439d63a8669ee1478, type: 3}
 --- !u!114 &4091113954864946112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,6 +547,7 @@ MonoBehaviour:
     type: 3}
   invincibilityTime: 0.5
   effectsController: {fileID: 4091113954864946112}
+  deathSound: {fileID: 8300000, guid: 2bede652be1d7a948b8848d1968bae2d, type: 3}
   isInvincible: 0
 --- !u!114 &3571188135595931456
 MonoBehaviour:
@@ -866,6 +868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageToDeal: 1
+  damageSound: {fileID: 8300000, guid: ca661ec3b1a01494e8d01291601bb522, type: 3}
 --- !u!1 &7757096797569540905
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,3 +972,4 @@ MonoBehaviour:
   playerRigidBody: {fileID: 2793844680796154479}
   damageToDeal: 1
   bounceForce: 12
+  stompSound: {fileID: 8300000, guid: d74528a94a4d8f94bbd351686d97dfd5, type: 3}

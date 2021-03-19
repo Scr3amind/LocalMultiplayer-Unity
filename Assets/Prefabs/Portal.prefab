@@ -114,3 +114,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeToTransport: {fileID: 0}
+  teletransportSound: {fileID: 8300000, guid: 2750458de7757be478991cb3261674b0, type: 3}

@@ -7,6 +7,7 @@ public class JumpPad : MonoBehaviour
     [SerializeField] private Sprite jumpPadUpSprite;
     [SerializeField] private float activeTime = 0.5f;
     [SerializeField] private float jumpForce = 30f;
+    [SerializeField] private AudioClip jumpPadSound;
     private SpriteRenderer spriteRenderer;
     private void Start() 
     {
@@ -17,6 +18,7 @@ public class JumpPad : MonoBehaviour
     {
         other.GetComponent<PhysicsController>()?.makeItJump(jumpForce);
         activateJumpPad();
+        AudioManager.instance.playSound(jumpPadSound);
     }
 
     private void activateJumpPad()

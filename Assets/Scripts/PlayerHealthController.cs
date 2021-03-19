@@ -10,6 +10,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     [SerializeField] private HeartController heartPrefab = null;
     [SerializeField] private float invincibilityTime = 0.5f;
     [SerializeField] private EffectsController effectsController = null;
+    [SerializeField] private AudioClip deathSound;
     private List<HeartController> heartsList = new List<HeartController>();
     private float heartPositionX = -0.5f;
     private int healthPoints = 0;
@@ -116,6 +117,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     void die() {
         gameObject.SetActive(false);
         GameManager.instance.reducePlayersAlive();
+        AudioManager.instance.playSound(deathSound);
     }
 
     public void becomeInvincible(float invincibleTime) 

@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private float timeBetweenAttacks = 0.25f;
 
+    [SerializeField] private AudioClip attackSound;
+
     private bool isGrounded = false;
     private bool canMove = true;
     private float horizontalDirection;
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             pauseAndRestartMovement();
             animator.SetTrigger("attack");
+            AudioManager.instance.playSound(attackSound);
         }
     }
 

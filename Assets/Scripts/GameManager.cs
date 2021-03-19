@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIController uIController;
     [SerializeField] private List<GameObject> players;
     [SerializeField] private LevelManager levelManager;
+    [SerializeField] private AudioClip countDownSound;
     private GameObject currentWinner;
     public int numOfActivePlayers
     {get => _numOfActivePlayers;}
@@ -164,6 +165,7 @@ public class GameManager : MonoBehaviour
         while(currentNumber >= 0) {
             uIController.setCountDownText(currentNumber);
             currentNumber--;
+            AudioManager.instance.playSound(countDownSound);
             yield return new WaitForSeconds(1.0f);
         }
         uIController.enableCountDownText(false);

@@ -10,6 +10,7 @@ public class CharacterSelectorButton : MonoBehaviour
     [SerializeField] private SpriteRenderer buttonRenderer = null;
     [SerializeField] private SpriteRenderer characterRenderer = null;
     [SerializeField] private BoxCollider2D buttonCollider = null;
+    [SerializeField] private AudioClip selectSound;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class CharacterSelectorButton : MonoBehaviour
         buttonRenderer.sprite = buttonDown;
         buttonCollider.enabled = false;
         other.GetComponent<CharacterSwitcher>()?.switchCharacter(characterAnimator);
+        AudioManager.instance.playSound(selectSound);
 
         
     }

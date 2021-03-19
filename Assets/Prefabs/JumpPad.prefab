@@ -103,6 +103,7 @@ MonoBehaviour:
     type: 3}
   activeTime: 0.5
   jumpForce: 30
+  jumpPadSound: {fileID: 8300000, guid: 8d8175a7368fd9549ac47c6b8e54337a, type: 3}
 --- !u!61 &4089027390050905045
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -110,6 +110,7 @@ MonoBehaviour:
   buttonRenderer: {fileID: 2489330274923159904}
   characterRenderer: {fileID: 2489330275649791097}
   buttonCollider: {fileID: 2489330275918738890}
+  selectSound: {fileID: 8300000, guid: 199de40e82af31640a203f7c66d8d848, type: 3}
 --- !u!61 &2489330274923159909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -311,7 +312,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 6c5fb27e891e047448aaf82869ed6559, type: 3}
-  m_Color: {r: 0.48636523, g: 0.8679245, b: 0.7771477, a: 0.78431374}
+  m_Color: {r: 0.37169808, g: 1, b: 0.81566113, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
