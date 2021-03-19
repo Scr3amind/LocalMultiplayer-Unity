@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3141970968592540269}
   - component: {fileID: 3141970968592540270}
   - component: {fileID: 3141970968592540271}
-  - component: {fileID: 3141970968592540256}
+  - component: {fileID: 8542219759601736265}
   m_Layer: 10
   m_Name: Pickup Speed
   m_TagString: Untagged
@@ -101,7 +101,7 @@ CircleCollider2D:
   m_Offset: {x: -0.04, y: -0.03}
   serializedVersion: 2
   m_Radius: 0.4
---- !u!114 &3141970968592540256
+--- !u!114 &8542219759601736265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,8 +110,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3141970968592540257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a649a935d1568d4194bba7f099a5330, type: 3}
+  m_Script: {fileID: 11500000, guid: a4f0098a9cedc7a4b99dbc0e6321fe59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectTime: 10
-  speedMultiplicator: 1.5
+  powerUpType: 0
+  powerUpValue: 1.5
+  powerUpDuration: 5

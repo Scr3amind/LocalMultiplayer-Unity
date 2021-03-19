@@ -18,7 +18,32 @@ public class PowerUpTaker : MonoBehaviour
         initialMoveSpeed = playerController.movespeed;
         initialJumpForce = playerController.jumpForce;
     }
-    public void activateLowGravity(float newGravity, float effectTime)
+
+    public void activatePowerUp(PowerUp.PowerUpType powerUpType, float powerUpValue, float powerUpDuration)
+    {
+        switch (powerUpType)
+        {
+            case PowerUp.PowerUpType.SuperSpeed:
+                activateSuperSpeed(powerUpValue, powerUpDuration);
+                break;
+
+            case PowerUp.PowerUpType.Gravity:
+                activateLowGravity(powerUpValue, powerUpDuration);
+                break;
+
+            case PowerUp.PowerUpType.Invincibility:
+                activateInvincibility(powerUpDuration);
+                break;
+
+            case PowerUp.PowerUpType.Health:
+                addHealth((int)powerUpValue);
+                break;
+
+            default:
+                return;
+        }
+    }
+    private void activateLowGravity(float newGravity, float effectTime)
     {
         physicsController.changeGravity(newGravity);
         playerController.movespeed *= 0.8f;
@@ -32,7 +57,7 @@ public class PowerUpTaker : MonoBehaviour
         playerController.movespeed = initialMoveSpeed;
     }
 
-    public void activateSuperSpeed(float speedMultiplicator, float effectTime)
+    private void activateSuperSpeed(float speedMultiplicator, float effectTime)
     {
         
         playerController.movespeed *= speedMultiplicator;
@@ -44,12 +69,12 @@ public class PowerUpTaker : MonoBehaviour
         playerController.movespeed = initialMoveSpeed;
     }
 
-    public void activateInvincibility(float invincibleTime)
+    private void activateInvincibility(float invincibleTime)
     {
         playerHealthController?.becomeInvincible(invincibleTime);
     }
 
-    public void addHealth(int healthToAdd)
+    private void addHealth(int healthToAdd)
     {
         for (int i = 0; i < healthToAdd; i++)
         {
