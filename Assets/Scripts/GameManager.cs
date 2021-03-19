@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [SerializeField] private Color[] playerColors = new Color[4];
     [SerializeField] private int _minPlayers;
     [SerializeField] private int _numOfActivePlayers = 0;
     [SerializeField] private int _numOfTotalPlayers;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         if(numOfActivePlayers < minPlayers) {
             player.GetComponent<PlayerHealthController>().isInvincible = !playersCanDamage;
             players.Add(player);
+            player.GetComponent<PlayerStatsController>().setPlayerColor(playerColors[_numOfTotalPlayers]);
             _numOfTotalPlayers++;
             player.GetComponent<PlayerStatsController>().setName($"Player {_numOfTotalPlayers}");
         }

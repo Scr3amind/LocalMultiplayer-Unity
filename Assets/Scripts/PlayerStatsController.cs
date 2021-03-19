@@ -10,11 +10,12 @@ public class PlayerStatsController : MonoBehaviour
 
     private int currentWins = 0;
 
-    private void Start() 
+    public void setPlayerColor(Color color)
     {
-        playerColor = Color.HSVToRGB(Random.Range(0,1.0f),0.5f,1.0f);
+        playerColor = color;
         playerUIController?.setUIColor(playerColor);
     }
+    
 
     public Color getPlayerColor()
     {

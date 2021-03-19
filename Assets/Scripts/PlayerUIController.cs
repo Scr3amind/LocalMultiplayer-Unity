@@ -10,7 +10,8 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private float disableTime = 3.0f;
     private Color uiColor = Color.white;
 
-    private void OnEnable() {
+    private void OnEnable() 
+    {
         playerUICanvas.gameObject.SetActive(true);
         Invoke("disableUI",disableTime);
     }
