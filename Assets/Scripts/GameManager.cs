@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     public void reducePlayersAlive()
     {
         _numOfActivePlayers--;
-        if(_numOfActivePlayers <= 1)
+        if(_numOfActivePlayers == 1)
         {
             endRound();
         }
